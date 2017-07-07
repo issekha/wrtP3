@@ -81,7 +81,7 @@ class HomeController {
         ));
     }
 	// report comment
- public function reportAction($id, Request $request, Application $app){
+ public function reportAction($id, Application $app){
 	$comment = $app['dao.comment']->find($id);
 	$nbReport = $comment->getReport();
 	$nbReport++;

@@ -1,0 +1,188 @@
+{% extends "layout2.html.twig" %} {% set adminMenu = true %} {% block title %}Administration{% endblock %} {% block content %}
+	<br>
+	<br>
+	<div class="well admin">
+		<h2 class="text-center " >{{ block('title') }}</h2>
+		{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">
+			{{ flashMessage }}
+		</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active"><a href="#articles" data-toggle="tab">Chapitres</a></li>
+					<li><a href="#comments" data-toggle="tab">Commentaires</a></li>
+					<li><a href="#users" data-toggle="tab">Utilisateurs</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="tab-content">
+			<div class="tab-pane fade in active adminTable" id="articles">
+				{% if articles %}
+					<div class="table-responsive">
+						<table class="table table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Titre</th>
+									<th>Contenu</th>
+									<th></th>
+									<!-- Actions column -->
+								</tr>
+							</thead>
+							{% for article in articles %}
+							<tr>
+								<td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.titre }}</a></td>
+								<td>{{ article.contenu | striptags | truncate(60) }}</td>
+								<td>
+									<a href="{{ path('admin_article_edit', { 'id': article.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+									<button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#articleDialog{{ article.id }}"><span class="glyphicon glyphicon-remove"></span>
+									</button>
+									<div class="modal fade" id="articleDialog{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">Veuillez confirmer</h4>
+												</div>
+												<div class="modal-body">
+													Attention ce chapitre va être supprimé.
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+													<a href="{{ path('admin_article_delete', { 'id': article.id }) }}" class="btn btn-danger">Confirmer</a>
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% else %}
+				<div class="alert alert-warning">Aucun Chapitre trouvé.</div>
+				{% endif %}
+				<a href="{{ path('admin_article_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un chapitre</button></a>
+			</div>
+		<div class="tab-pane fade adminTable" id="comments">
+			<!-- Gestion des commentaires -->
+			{% if comments %}
+			<div class="table-responsive">
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Chapitre</th>
+							<th>Auteur</th>
+							<th>Contenu</th>
+							<th></th>
+							<!-- Actions column -->
+						</tr>
+					</thead>
+					{% for comment in comments %} {% if comment.report != 0 %}
+
+					<tr>
+						<td><a class="articleTitle" href="{{ path('article', { 'id': comment.article.id }) }}">{{ comment.article.titre }}</a></td>
+						<td style="color:red;">{{ comment.author }}</td>
+						<td style="color:red;">{{ comment.content | truncate(60) }}</td>
+						{% else %}
+						<td><a class="articleTitle" href="{{ path('article', { 'id': comment.article.id }) }}">{{ comment.article.titre }}</a>
+						<td>{{ comment.author }}</td>
+						<td>{{ comment.content | truncate(60) }}</td>
+						{% endif %}
+						<td>
+							<a href="{{ path('admin_comment_edit', { 'id': comment.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+							<button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#commentDialog{{ comment.id }}"><span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<div class="modal fade" id="commentDialog{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel">Veuillez confirmer</h4>
+										</div>
+										<div class="modal-body">
+											Attention ce commentaire va être supprimé.
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+											<a href="{{ path('admin_comment_delete', { 'id': comment.id }) }}" class="btn btn-danger">Confirmer</a>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			{% else %}
+			<div class="alert alert-warning">Aucun commentaire trouvé.</div>
+			{% endif %}
+		</div>
+		<div class="tab-pane fade adminTable" id="users">
+			<!-- Gestion des utilisateurs -->
+
+			{% if users %}
+			<div class="table-responsive">
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Role</th>
+							<th></th>
+							<!-- Actions column -->
+						</tr>
+					</thead>
+					{% for user in users %}
+					<tr>
+						<td>{{ user.username }}</a>
+						</td>
+						<td>
+							{% if user.role == 'ROLE_ADMIN' %} Admin {% else %} User {% endif %}
+						</td>
+						<td>
+							<a href="{{ path('admin_user_edit', { 'id': user.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+							<button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel">Veuillez confirmer</h4>
+										</div>
+										<div class="modal-body">
+											Attention cet utilisateur va être supprimé.
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+											<a href="{{ path('admin_user_delete', { 'id': user.id }) }}" class="btn btn-danger">Confirmer</a>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			{% else %}
+			<div class="alert alert-warning">Aucun utilisateur trouvé.</div>
+			{% endif %}
+			<a href="{{ path('admin_user_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add user</button></a>
+
+		</div>
+	</div>
+
+	</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+html,
+body{
+    height: 100%;
+}
+
+
+.articleTitle:hover, .articleTitle:focus {
+    text-decoration: none;
+	background-color: lightgray;
+	
+}
+.articleTitle{
+	
+}
+
+.view {
+    /* The image used */
+    background-image: url("/images/homePage/cover.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+      z-index: 1;
+
+}
+
+
+.footer {
+    border-top: 1px solid #ccc;
+    padding-top: 100px;
+    text-align: center;
+}
+
+.jumbotron {
+    color: #000;
+    background-color: rgba(0, 0, 255, 0);
+    
+    transform: translateY(50%);
+    /* tiré de la moitié de sa propre hauteur */
+}
+.navbar-default{
+  background:transparent;
+  background-image:none;
+  border-color:transparent;
+  box-shadow:none;
+}
+
+.synops{
+  padding-top: 10%;
+    padding-bottom: 25%;
+    width: 50%;
+}
+
+.chapter{
+    
+ 
+    background-color: beige;
+}
+
+.img-thumbnail{
+    float: left;
+    width: 10%;
+    height: 10%;
+}
+
+.about{
+    
+    padding-bottom: 20%;
+}
+.chapterTitle:hover, .chapterTitle:focus {
+    text-decoration: none;
+}
+
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+
+.navbar {
+    -webkit-transition: all 0.6s ease-out;
+    -moz-transition: all 0.6s ease-out;
+    -o-transition: all 0.6s ease-out;
+    -ms-transition: all 0.6s ease-out;
+    transition: all 0.6s ease-out;
+}
+
+.navbar.scrolled {
+    background: rgb(68, 68, 68); //IE
+    background: rgba(0, 0, 0, 0.78); //NON-IE
+}
+
+.authorTxt{
+	padding-left: 10%;
+	padding-right: 10%;
+	background-color: white;
+	
+}
+.authorImg{
+	
+	border-right: 10px solid grey;
+}
+#article{
+	padding-left: 5%;
+	padding-right: 5%;
+	
+}
+#art{
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+
+.comments{
+	
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-left: 3%;
+	margin-right: 3%;
+	
+}
+.userName{
+	width: 270px;
+}
+.comment{
+	background-color: rgb(68, 68, 68);
+	padding: 5%;
+}
+.admin{
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-left: 3%;
+	margin-right: 3%;
+}
+.editcom{
+	padding-top: 3%;
+	
+}
+.nocom{
+	color: whitesmoke;
+}
+.navbar-nav > li > .dropdown-menu {     position: relative;}

@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+
+{% block title %}Home {% endblock %}
+
+{% block content %}
+
+{% for article in article %}
+	<div class="col-md-4 " id="article">
+		<article>
+			<h2><a class="btn btn-primary  btn-lg articleTitle" href="{{ path('article', { 'id': article.id }) }}" role="button">{{ article.titre }}</a>
+			</h2>
+			<p>{{ article.contenu | striptags | truncate(200) }}</p>
+		</article>
+	</div>
+{% endfor %}
+	<div class="well col-md-12" id="about">
+		<table>
+			<caption ><h4 align="center">A propos de l'auteur</h4></caption>
+			<tr>
+				<td class="authorImg" style="width:10%; " align="center"><img src="/images/testcms1.jpg" alt="Auteur" width="75%" style="margin-left:10px;">
+				</td>
+				<td class="authorTxt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet aliquam mi, ac vehicula arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel urna non risus tempus posuere id at nulla. Sed eget cursus ipsum. Nunc fringilla, orci at viverra dictum, nibh elit fringilla risus, a posuere purus erat tempus diam. Sed at leo felis. Integer venenatis neque justo, ac condimentum ipsum efficitur in. Praesent nec erat eget elit mollis pellentesque. Nam pellentesque nibh sem, non interdum nibh commodo et.
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

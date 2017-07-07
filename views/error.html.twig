@@ -1,0 +1,16 @@
+{% extends "layout2.html.twig" %}
+
+{% block title %}Error!{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3" >
+			<img class="img-responsive pull-right" src="{{ asset('/images/404.png') }}" alt="Error ghost"/>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3 text-center" >
+				<h1>Whoops...<br><small>{{ message }}</small></h1>
+			</div>
+		</div>
+	</div>
+{% endblock %}

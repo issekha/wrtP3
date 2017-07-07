@@ -1,0 +1,58 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+	<p>
+		<div class="well " id="art">
+			<h2>{{ article.titre }}</h2>
+			<p>{{ article.contenu | raw  }}</p>
+			<p><button class="btn btn-infos btn-xs previous" data-id="{{ article.id }}"  >Précédent</button>
+				<button class="btn btn-infos btn-xs next" data-id="{{ article.id }}"  >Suivant</button>
+			</p>
+		</div>
+	   <div class="well comments">
+			<h3>Commentaires</h3>
+			{% for comment in comments %}
+		   	<div class="comment">
+				<div id="comment-{{comment.id}}" class="well well-sm"><strong>{{ comment.author }}</strong> said : {{ comment.content }}<br>
+					<p class="text-right"><button class="btn btn-warning btn-xs report" data-id="{{ comment.id }}"  >Signaler</button></p>
+				</div>
+			</div>
+			{% else %}
+				 Soyez le premier à commenter.
+			{% endfor %}
+			<h3>Ajoutez un commentaire</h3>
+			{% if commentForm %}
+				{{ form_start(commentForm) }}
+					<div class="form-group userName">
+						{{ form_errors(commentForm.author) }}
+						{{ form_widget(commentForm.author, { 'attr':  {
+							'rows': '1',
+							'class': 'form-control',
+							'placeholder': 'Votre nom'
+						}}) }}
+					</div>
+					<div class="form-group" >
+						{{ form_errors(commentForm.content) }}
+						{{ form_widget(commentForm.content, { 'attr':  {
+							'rows': '4',
+							'class': 'form-control',
+							'placeholder': 'Votre commentaire...'
+						}}) }}
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Enregistrer" />
+					</div>
+				{{ form_end(commentForm) }}
+				{% for flashMessage in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">
+						{{ flashMessage }}
+					</div>
+				{% endfor %}
+			{% else %}
+				<a href="{{ path('login') }} ">Log in</a> to add comments.
+			{% endif %}
+	</div>
+	</p>
+{% endblock %}
